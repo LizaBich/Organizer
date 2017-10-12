@@ -1,5 +1,6 @@
 # Organizer
 # Требования к проекту
+
 # 1 Введение
 Цель разработки – приложение для десктопных устройств под управлением операционной системы (ОС) Windows. 
 Данное приложение предоставляет следующие возможности:
@@ -7,28 +8,35 @@
 2.	Добавление событий на каждый день
 3.	Установка приоритета заметки (заметки с более высоким приоритетом отображаются выше в списке)
 4.	Уведомление о предстоящем событии
+
 # 2 Требования пользователя
 # 2.1 Программные интерфейсы
 Приложение будет написано на языке C# в "Visual Studia 2017" с использованием Windows Presentation Foundation (WPF) для интерфейса пользователя и EntityFramework для построения базы данных.
 # 2.2 Интерфейс пользователя
 Окно со списком событий на день:
-![Иллюстрация к проекту](https://github.com/LizaBich/Organizer/raw/master/Mockups/CalendarEventPage.png)
+
+![Image alt](https://github.com/LizaBich/Organizer/raw/master/Mockups/CalendarEventPage.png)
 
 Окно для добавления или редактирования события:
-![Иллюстрация к проекту](https://github.com/LizaBich/Organizer/raw/master/Mockups/AddOrEditEvent.png)
+
+![Image alt](https://github.com/LizaBich/Organizer/raw/master/Mockups/AddOrEditEvent.png)
 
 Окно со списком заметок:
-![Иллюстрация к проекту](https://github.com/LizaBich/Organizer/raw/master/Mockups/NotePage.png)
+
+![Image alt](https://github.com/LizaBich/Organizer/raw/master/Mockups/NotePage.png)
 
 Окно для добавления или редактирования заметки:
-![Иллюстрация к проекту](https://github.com/LizaBich/Organizer/raw/master/Mockups/AddOrEditNote.png)
+
+![Image alt](https://github.com/LizaBich/Organizer/raw/master/Mockups/AddOrEditNote.png)
 
 Окно, появляющееся при напоминании о событии:
-![Иллюстрация к проекту](https://github.com/LizaBich/Organizer/raw/master/Mockups/Reminder.png)
+
+![Image alt](https://github.com/LizaBich/Organizer/raw/master/Mockups/Reminder.png)
 
 # 2.3 Характеристика пользователя
 Целевой аудиторией данного приложения являются любые пользователи, желающие иметь список заметок и событий на своём ПК.
 Минимальный необходимый навык – умение пользоваться персональным компьютером под управлением ОС Windows.
+
 # 3 Системные требования
 Любое устройство под управлением Windows 10.
 # 3.1 Функциональные требования
