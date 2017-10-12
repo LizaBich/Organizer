@@ -13,14 +13,19 @@
 # 2.2 Интерфейс пользователя
 Окно со списком событий на день:
 ![Иллюстрация к проекту](https://github.com/LizaBich/Organizer/raw/master/Mockups/CalendarEventPage.png)
+
 Окно для добавления или редактирования события:
 ![Иллюстрация к проекту](https://github.com/LizaBich/Organizer/raw/master/Mockups/AddOrEditEvent.png)
+
 Окно со списком заметок:
 ![Иллюстрация к проекту](https://github.com/LizaBich/Organizer/raw/master/Mockups/NotePage.png)
+
 Окно для добавления или редактирования заметки:
 ![Иллюстрация к проекту](https://github.com/LizaBich/Organizer/raw/master/Mockups/AddOrEditNote.png)
+
 Окно, появляющееся при напоминании о событии:
 ![Иллюстрация к проекту](https://github.com/LizaBich/Organizer/raw/master/Mockups/Reminder.png)
+
 # 2.3 Характеристика пользователя
 Целевой аудиторией данного приложения являются любые пользователи, желающие иметь список заметок и событий на своём ПК.
 Минимальный необходимый навык – умение пользоваться персональным компьютером под управлением ОС Windows.
