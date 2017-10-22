@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Organizer"
         mc:Ignorable="d"
-        Title="Organizer" Height="600" Width="900" Background="AliceBlue">
+        Title="Organizer" Height="600" Width="900" Background="AliceBlue" MinHeight="300" MinWidth="600">
 
     <Grid x:Name="MainGrid" >
         <Grid.ColumnDefinitions>
@@ -19,8 +19,8 @@
                     <DropShadowEffect/>
                 </Grid.Effect>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -33,9 +33,9 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <Button x:Name="OpenEventPage" Content="E" Grid.Row="1" Margin="5,5,5,5" Command="{Binding LoadEventPage, Mode=OneTime}"/>
+                <Button x:Name="OpenEventPage" Content="E" Grid.Row="0" Margin="5,5,5,5" Command="{Binding LoadEventPage, Mode=OneTime}"/>
 
-                <Button x:Name="OpenNotePage" Content="N" Grid.Row="2" Margin="5,5,5,5" Command="{Binding LoadNotePage, Mode=OneTime}"/>
+                <Button x:Name="OpenNotePage" Content="N" Grid.Row="1" Margin="5,5,5,5" Command="{Binding LoadNotePage, Mode=OneTime}"/>
             </Grid>
         </Border>
         <ContentPresenter Grid.Column="1" Grid.Row="0" x:Name="OutputView"/>

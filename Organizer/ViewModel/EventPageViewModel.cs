@@ -18,19 +18,19 @@ namespace Organizer.ViewModel
             _MainCodeBehinder = codeBehinder ?? throw new ArgumentNullException(nameof(codeBehinder));
         }
 
-        private RelayCommand _OpenAddOrEditEventPage;
+        //private RelayCommand _OpenAddOrEditEventPage;
 
-        public RelayCommand OpenAddOrEditEventPage
-        {
-            get
-            {
-                return _OpenAddOrEditEventPage = _OpenAddOrEditEventPage ??
-                                            new RelayCommand(OnOpenAddOrEditEventPage, CanOpenAddOrEditEventPage);
-            }
-        }
+        //public RelayCommand OpenAddOrEditEventPage
+        //{
+        //    get
+        //    {
+        //        return _OpenAddOrEditEventPage = _OpenAddOrEditEventPage ??
+        //                                    new RelayCommand(OnOpenAddOrEditEventPage, CanOpenAddOrEditEventPage);
+        //    }
+        //}
 
-        private bool CanOpenAddOrEditEventPage() => true;
+        //private bool CanOpenAddOrEditEventPage() => true;
 
-        private void OnOpenAddOrEditEventPage() => _MainCodeBehinder.OpenWindow(WindowType.EventWindow);
+        //private void OnOpenAddOrEditEventPage() => _MainCodeBehinder.OpenWindow(WindowType.EventWindow);
     }
 }

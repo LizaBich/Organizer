@@ -2,29 +2,16 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using Organizer.Annotations;
 
-namespace Organizer
+namespace Organizer.Model
 {
-    public class Account
-    {
-
-        public Account()
-        {
-            Events = new ObservableCollection<CalendarEvent>();
-            Notes = new ObservableCollection<Note>();
-        }
-
-        public string Name { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public ObservableCollection<CalendarEvent> Events { get; set; }
-        public ObservableCollection<Note> Notes { get; set; }
-    }
-
     public class CalendarEvent : INotifyPropertyChanged
     {
         private string eventName;
@@ -105,6 +92,16 @@ namespace Organizer
             }
         }
 
+        public override string ToString()
+        {
+            return "Название мероприятия: " + EventName +
+                   "\n\rМесто проведения: " + Place +
+                   "\n\rВремя начала: " + StartTime.ToLongTimeString() +
+                   "\n\nВремя окончания: " + EndTime.ToLongTimeString() +
+                   "\n\rПовтор: " + Repeate +
+                   "\n\rОписание:\n\r" + Description;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
@@ -112,60 +109,82 @@ namespace Organizer
         }
     }
 
-    public class Note : INotifyPropertyChanged
+    public class Note : INotifyPropertyChanged, IEquatable<Note>
     {
-        private string name;
-        private string content;
-        private DateTime timeOfChange;
-        private ObservableCollection<object> files;
+        private Brush _color;
+        private string _name;
+        private string _content;
+        private DateTime _timeOfChange;
+        private int _priority;
 
-        
-        public Note(string nName, string content, DateTime date)
-        {
-            Name = nName;
-            Content = content;
-            TimeOfChange = date;
-        }
+        #region Properties
 
         public int Id { get; set; }
-        public string Name
+
+        public int Priority
         {
-            get => name;
+            get => _priority;
             set
             {
-                name = value;
+                _priority = value;
+                OnPropertyChanged("Priority");
+            }
+        }
+
+        public string NoteName
+        {
+            get => _name;
+            set
+            {
+                _name = value;
                 OnPropertyChanged("Name");
             }
         }
+
         public string Content
         {
-            get => content;
+            get => _content;
             set
             {
-                content = value;
+                _content = value;
                 OnPropertyChanged("Content");
             }
         }
 
         public DateTime TimeOfChange
         {
-            get => timeOfChange;
+            get => _timeOfChange;
             set
             {
-                timeOfChange = value;
+                _timeOfChange = value;
                 OnPropertyChanged("TimeOfChange");
             }
         }
 
-        public ObservableCollection<object> Files
+        public string StringTimeOfChange => TimeOfChange.ToString("F");
+
+        public Brush Color
         {
-            get => files;
+            get => _color;
             set
             {
-                files = value;
-                OnPropertyChanged("Files");
+                _color = value;
+                OnPropertyChanged("Color");
             }
         }
+
+        #endregion
+
+        public Note(string nName, string content, DateTime date, Brush color, int priority)
+        {
+            NoteName = nName;
+            Content = content;
+            TimeOfChange = date;
+            Color = color;
+            Priority = priority;
+        }
+
+        public override string ToString() => NoteName + "\n" + Content;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -173,5 +192,43 @@ namespace Organizer
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
+
+
+        public Brush PriorityColor
+        {
+            get
+            {
+                switch (_priority)
+                {
+                    case 1: return Brushes.Red;
+                    case 2: return Brushes.Yellow;
+                    case 3: return Brushes.LimeGreen;
+                    default: return Brushes.White;
+                }
+            }
+        }
+
+
+        public bool Equals(Note other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return string.Equals(_name, other._name);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != GetType()) return false;
+            return Equals((Note)obj);
+        }
+
+        public bool Equals(string obj)
+        {
+            return NoteName.Contains(obj);
+        }
+
+        public override int GetHashCode() => NoteName != null ? NoteName.GetHashCode() : 0;
     }
 }

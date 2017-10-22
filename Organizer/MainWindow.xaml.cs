@@ -1,4 +1,5 @@
 ﻿using Organizer.ViewModel;
+using Organizer.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -33,7 +34,7 @@ namespace Organizer
     public interface IMainWindowsCodeBehind
     {
         void LoadView(ViewType typeView);
-        void OpenWindow(WindowType winType);
+        //void OpenWindow(WindowType winType);
     }
 
     /// <summary>
@@ -44,14 +45,16 @@ namespace Organizer
         public MainWindow()
         {
             InitializeComponent();
-            this.Loaded += MainWindow_Loaded;
+            Loaded += MainWindow_Loaded;
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            MainWindowViewModel vm = new MainWindowViewModel();
-            vm.CodeBehind = this;
-            this.DataContext = vm;
+            MainWindowViewModel vm = new MainWindowViewModel
+            {
+                CodeBehind = this
+            };
+            DataContext = vm;
             LoadView(ViewType.EventPage);
         }
 
@@ -63,32 +66,14 @@ namespace Organizer
                     CalendarEventsPage ePage = new CalendarEventsPage();
                     EventPageViewModel vm = new EventPageViewModel(this);
                     ePage.DataContext = vm;
-                    this.OutputView.Content = ePage;
+                    OutputView.Content = ePage;
                     break;
                 case ViewType.NotePage:
                     NotesPage nPage = new NotesPage();
                     NotePageViewModel nvm = new NotePageViewModel(this);
                     nPage.DataContext = nvm;
-                    this.OutputView.Content = nPage;
-                    break;
-            }
-        }
-
-        public void OpenWindow(WindowType winType)
-        {
-            switch (winType)
-            {
-                case WindowType.EventWindow:
-                    AddOrEditEvent ee = new AddOrEditEvent();
-                    AddOrEditEventViewModel evm = new AddOrEditEventViewModel();
-                    ee.DataContext = evm;
-                    ee.Show();
-                    break;
-                case WindowType.NoteWindow:
-                    AddOrEditNote en = new AddOrEditNote();
-                    AddOrEditNoteViewModel vm = new AddOrEditNoteViewModel();
-                    en.DataContext = vm;
-                    en.Show();
+                    //_notepage = nPage;
+                    OutputView.Content = nPage;
                     break;
             }
         }

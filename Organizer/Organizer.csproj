@@ -70,8 +70,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModel\AddOrEditEventViewModel.cs" />
-    <Compile Include="ViewModel\AddOrEditNoteViewModel.cs" />
     <Compile Include="ViewModel\NotePageViewModel.cs" />
     <Compile Include="ViewModel\EventPageViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
