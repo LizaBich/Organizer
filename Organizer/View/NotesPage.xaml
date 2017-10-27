@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Organizer"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="860" Background="SteelBlue">
+             d:DesignHeight="600" d:DesignWidth="859" Background="Bisque">
     
     <UserControl.Resources>
         <Style TargetType="TextBlock">
@@ -37,7 +37,11 @@
                 </Grid.ColumnDefinitions>
                 
                 <TextBox x:Name="SearchName" Grid.Column="0"/>
-                <Button x:Name="SearchButton" Grid.Column="1" Background="White" Click="SearchButton_OnClick"/>
+                <Button x:Name="SearchButton" Grid.Column="1" Background="White" Click="SearchButton_OnClick">
+                    <Button.Content>
+                        <Image Source="../Images/w512h5121380477032search.png" StretchDirection="Both"></Image>
+                    </Button.Content>
+                </Button>
             </Grid>
         </Border>
         
@@ -45,7 +49,7 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
 
                 <ListBox x:Name="NotesList" Grid.Row="0" Margin="5,5,5,5" BorderBrush="White">
@@ -60,13 +64,21 @@
 
                                 <Ellipse x:Name="ColorOfPriority" Fill="{Binding Path=PriorityColor}" Grid.Column="0" Width="5" Height="5"/>
                                 <TextBlock Text="{Binding Path=NoteName}" Grid.Column="1" FontSize="14" FontFamily="Verdana"/>
-                                <Button x:Name="DeleteNote" Grid.Column="2" Click="DeleteNote_OnClick"/>
+                                <Button x:Name="DeleteNote" Grid.Column="2" Click="DeleteNote_OnClick">
+                                    <Button.Content>
+                                        <Image Source="../Images/w448h5121380477116trash.png" StretchDirection="Both"/>
+                                    </Button.Content>
+                                </Button>
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
 
-                <Button x:Name="AddNote" Content="Добавить" Grid.Row="1" Margin="200,5,10,5" Click="AddNote_OnClick"/>
+                <Button x:Name="AddNote" Grid.Row="1" Margin="230,5,10,5" Click="AddNote_OnClick" Width="40" Height="40">
+                    <Button.Content>
+                        <Image Source="../Images/w256h2561390853621hospital256.png" StretchDirection="Both"/>
+                    </Button.Content>
+                </Button>
             </Grid>
         </Border>
 
@@ -79,13 +91,17 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
                     <RowDefinition/>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
 
                 
                 <TextBlock x:Name="NoteDescription" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0,6" DataContext="{Binding ElementName=NotesList, Path=SelectedItem}" Background="{Binding Path=Color}" Text="{Binding Path=Content}" Style="{x:Null}"  FontSize="16" FontFamily="Verdana"/>
                 <TextBlock x:Name="DateOfChange" Grid.Row="2" Grid.Column="0" Margin="10,5,10,5" DataContext="{Binding ElementName=NotesList, Path=SelectedItem}" Text="{Binding Path=StringTimeOfChange}" Style="{x:Null}"  FontSize="14" FontFamily="Verdana"/>
-                <Button x:Name="Edit" Content="Изменить" Grid.Column="1" Grid.Row="2" Margin="170,5,10,5" Click="Edit_OnClick"  Width="80" Height="20"/>
+                <Button x:Name="Edit" Grid.Column="1" Grid.Row="2" Margin="210,5,10,5" Click="Edit_OnClick" Width="40" Height="40">
+                    <Button.Content>
+                        <Image Source="../Images/Editing-Edit-icon.png" StretchDirection="Both"/>
+                    </Button.Content>
+                </Button>
                 <TextBlock x:Name="NName" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" DataContext="{Binding ElementName=NotesList, Path=SelectedItem}" Background="{Binding Path=Color}" Text="{Binding Path=NoteName}"  Style="{x:Null}"  FontSize="16" FontFamily="Verdana"/>
             </Grid>
         </Border>

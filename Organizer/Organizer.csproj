@@ -71,7 +71,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="ViewModel\AddOrEditEventViewModel.cs" />
     <Compile Include="ViewModel\NotePageViewModel.cs" />
     <Compile Include="ViewModel\EventPageViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
@@ -131,6 +130,13 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\1600.png" />
+    <Resource Include="Images\calendar1600.png" />
+    <Resource Include="Images\Editing-Edit-icon.png" />
+    <Resource Include="Images\w256h2561390853621hospital256.png" />
+    <Resource Include="Images\w448h5121380477116trash.png" />
+    <Resource Include="Images\w512h5121380477032search.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

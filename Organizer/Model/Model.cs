@@ -14,93 +14,103 @@ namespace Organizer.Model
 {
     public class CalendarEvent : INotifyPropertyChanged
     {
-        private string eventName;
-        private string place;
-        private DateTime start;
-        private DateTime end;
-        private string repeate;
-        private string description;
+        private string _eventName;
+        private string _place;
+        private DateTime _start;
+        private DateTime _end;
+        private string _repeate;
+        private string _description;
+        private Brush _color;
 
-        public CalendarEvent(string eName, string place, DateTime st, DateTime en, string desc)
+        public CalendarEvent(string eName, string place, DateTime st, DateTime en, string desc, Brush color)
         {
             EventName = eName;
             Place = place;
             StartTime = st;
             EndTime = en;
             Description = desc;
+            Color = color;
         }
 
         public int Id { get; set; }
 
-        public string EventName
+        public Brush Color
         {
-            get => eventName;
+            get => _color;
             set
             {
-                eventName = value;
+                _color = value;
+                OnPropertyChanged("Color");
+            }
+        }
+
+        public string EventName
+        {
+            get => _eventName;
+            set
+            {
+                _eventName = value;
                 OnPropertyChanged("EventName");
             }
         }
 
         public string Place
         {
-            get => place;
+            get => _place;
             set
             {
-                place = value;
+                _place = value;
                 OnPropertyChanged("Place");
             }
         }
 
         public DateTime StartTime
         {
-            get => start;
+            get => _start;
             set
             {
-                start = value;
+                _start = value;
                 OnPropertyChanged("StartTime");
             }
         }
 
         public DateTime EndTime
         {
-            get => end;
+            get => _end;
             set
             {
-                end = value;
+                _end = value;
                 OnPropertyChanged("EndTime");
             }
         }
 
         public string Repeate
         {
-            get => repeate;
+            get => _repeate;
             set
             {
-                repeate = value;
+                _repeate = value;
                 OnPropertyChanged("Repeate");
             }
         }
 
         public string Description
         {
-            get => description;
+            get => _description;
             set
             {
-                description = value;
+                _description = value;
                 OnPropertyChanged("Description");
             }
         }
 
-        public override string ToString()
-        {
-            return "Название мероприятия: " + EventName +
-                   "\n\rМесто проведения: " + Place +
-                   "\n\rВремя начала: " + StartTime.ToLongTimeString() +
-                   "\n\nВремя окончания: " + EndTime.ToLongTimeString() +
-                   "\n\rПовтор: " + Repeate +
-                   "\n\rОписание:\n\r" + Description;
-        }
+        public string FullDescription => ToString();
+
+        public override string ToString() =>"Место проведения: " + Place +
+                   "\nВремя начала: " + StartTime.ToLongTimeString() +
+                   "\nВремя окончания: " + EndTime.ToLongTimeString() +
+                   "\nПовтор: " + Repeate +
+                   "\nОписание:\n" + Description;
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

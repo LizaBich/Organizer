@@ -72,7 +72,6 @@ namespace Organizer
                     NotesPage nPage = new NotesPage();
                     NotePageViewModel nvm = new NotePageViewModel(this);
                     nPage.DataContext = nvm;
-                    //_notepage = nPage;
                     OutputView.Content = nPage;
                     break;
             }
