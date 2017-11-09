@@ -35,10 +35,6 @@
 
 ![Image alt](https://github.com/LizaBich/Organizer/raw/master/Mockups/AddOrEditNote.png)
 
-Окно, появляющееся при напоминании о событии:
-
-![Image alt](https://github.com/LizaBich/Organizer/raw/master/Mockups/Reminder.png)
-
 # 2.3 Характеристика пользователя
 Целевой аудиторией данного приложения являются любые пользователи, желающие иметь список заметок и событий на своём ПК.
 Минимальный необходимый навык – умение пользоваться персональным компьютером под управлением ОС Windows.
