@@ -38,6 +38,9 @@
             this.eventDescription = new System.Windows.Forms.TextBox();
             this.monthCalendar = new System.Windows.Forms.MonthCalendar();
             this.Note = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.labelNoteChange = new System.Windows.Forms.Label();
             this.labelPriority = new System.Windows.Forms.Label();
             this.notesList = new System.Windows.Forms.ListView();
             this.buttonNoteDelete = new System.Windows.Forms.Button();
@@ -47,9 +50,6 @@
             this.buttonSearch = new System.Windows.Forms.Button();
             this.nameForSearch = new System.Windows.Forms.TextBox();
             this.buttonNoteAdd = new System.Windows.Forms.Button();
-            this.labelNoteChange = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.MainControl.SuspendLayout();
             this.CalendarEvent.SuspendLayout();
             this.Note.SuspendLayout();
@@ -94,6 +94,8 @@
             // 
             // eventsList
             // 
+            this.eventsList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.eventsList.Font = new System.Drawing.Font("Segoe Print", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.eventsList.Location = new System.Drawing.Point(14, 181);
             this.eventsList.Name = "eventsList";
@@ -138,6 +140,9 @@
             // 
             // eventDescription
             // 
+            this.eventDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.eventDescription.Enabled = false;
             this.eventDescription.Font = new System.Drawing.Font("Segoe Script", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.eventDescription.Location = new System.Drawing.Point(255, 7);
@@ -173,6 +178,35 @@
             this.Note.Size = new System.Drawing.Size(768, 478);
             this.Note.TabIndex = 1;
             this.Note.Text = "Notes";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe Script", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(251, 453);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(126, 19);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Дата изменения:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe Script", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(251, 432);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(99, 19);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Приоритет: ";
+            // 
+            // labelNoteChange
+            // 
+            this.labelNoteChange.AutoSize = true;
+            this.labelNoteChange.Font = new System.Drawing.Font("Segoe Script", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelNoteChange.Location = new System.Drawing.Point(383, 454);
+            this.labelNoteChange.Name = "labelNoteChange";
+            this.labelNoteChange.Size = new System.Drawing.Size(0, 19);
+            this.labelNoteChange.TabIndex = 8;
             // 
             // labelPriority
             // 
@@ -269,35 +303,6 @@
             this.buttonNoteAdd.TabIndex = 1;
             this.buttonNoteAdd.Text = "Добавить";
             this.buttonNoteAdd.UseVisualStyleBackColor = true;
-            // 
-            // labelNoteChange
-            // 
-            this.labelNoteChange.AutoSize = true;
-            this.labelNoteChange.Font = new System.Drawing.Font("Segoe Script", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelNoteChange.Location = new System.Drawing.Point(383, 454);
-            this.labelNoteChange.Name = "labelNoteChange";
-            this.labelNoteChange.Size = new System.Drawing.Size(0, 19);
-            this.labelNoteChange.TabIndex = 8;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe Script", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(251, 453);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(126, 19);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "Дата изменения:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe Script", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(251, 432);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(99, 19);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Приоритет: ";
             // 
             // MainWindow
             // 

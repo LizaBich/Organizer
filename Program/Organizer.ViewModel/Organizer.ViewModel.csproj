@@ -30,9 +30,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DI_container">
+      <HintPath>..\..\..\..\C#\EPAM\DI_container\DI_container\bin\Debug\DI_container.dll</HintPath>
+    </Reference>
+    <Reference Include="DI_container.Common">
+      <HintPath>..\..\..\..\C#\EPAM\DI_container\DI_container\bin\Debug\DI_container.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="DI_container.Exceptions">
+      <HintPath>..\..\..\..\C#\EPAM\DI_container\DI_container\bin\Debug\DI_container.Exceptions.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,6 +58,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Organizer.DataAccess\Organizer.DataAccess.csproj">
+      <Project>{f4032323-7437-4217-a1d5-3b5246eb0213}</Project>
+      <Name>Organizer.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Organizer.Model\Organizer.Model.csproj">
       <Project>{41067459-f593-45cb-abff-80781193d7cb}</Project>
       <Name>Organizer.Model</Name>

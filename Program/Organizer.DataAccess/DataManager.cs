@@ -1,9 +1,12 @@
 ﻿using DI_container.Common;
-using DI_container.Exceptions;
 using Organizer.Model;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.EnterpriseServices;
+using System.Linq;
+using DI_container.Exceptions;
+using CalendarEvent = Organizer.Model.CalendarEvent;
 
 namespace Organizer.DataAccess
 {
@@ -35,30 +38,13 @@ namespace Organizer.DataAccess
         /// <param name="items">Перечисление элементов</param>
         /// <exception cref="InvalidOperationException">InvalidOperationException</exception>
         /// <exception cref="RegistrationException">RegistrationException</exception>
-        public bool AddToDatabase<T>(IEnumerable<T> items) where T : class
+        public bool AddToDatabase(IEnumerable<Note> items = null, IDictionary<Day, IList<CalendarEvent>> evItems = null)
         {
-            if (typeof(T) == typeof(Note))
-            {
-                using (var db = _container.Resolve<NoteContext>())
-                {
-                    foreach (var item in items)
-                    {
-                        db.Notes.Add(item as Note ?? throw new InvalidOperationException());
-                    }
-                    db.SaveChanges();
-                    return true;
-                }
-            }
-            if (typeof(T) != typeof(CalendarEvent)) throw new ArgumentException($"Invalid type {typeof(T)}");
-            using (var db = _container.Resolve<CalendarEventContext>())
-            {
-                foreach (var item in items)
-                {
-                    db.Events.Add(item as CalendarEvent ?? throw new InvalidOperationException());
-                }
-                db.SaveChanges();
-                return true;
-            }
+            // Внесение в базу данных заметок
+            if (items != null && evItems == null) return AddNotesToDb(items);
+            // Внесение в бвзу данных событий
+            if (items == null && evItems != null) return AddEventsToDb(evItems);
+            throw new ArgumentException("Invalid arguments");
         }
 
 
@@ -77,15 +63,118 @@ namespace Organizer.DataAccess
                 using (var db = _container.Resolve<NoteContext>())
                 {
                     var result = db.Notes;
-                    return result;
+                    result.Load();
+                    return result.Local.ToList();
                 }
             }
             if (typeof(T) != typeof(CalendarEvent)) throw new ArgumentException($"Invalid type {typeof(T)}");
             using (var db = _container.Resolve<CalendarEventContext>())
             {
-                var result = db.Events;
+                IDictionary<Day, IList<CalendarEvent>> result = new Dictionary<Day, IList<CalendarEvent>>();
+                foreach (var day in db.Days.Include(e => e.Events))
+                {
+                    result.Add(day, day.Events);
+                }
                 return result;
             }
+        }
+
+        /// <summary>
+        /// Метод для удаления элемента из бд
+        /// </summary>
+        /// <param name="obj">Ссылка на объект, который надо удалить</param>
+        public void Remove(object obj)
+        {
+            switch (obj)
+            {
+                case Note _:
+                    using (var db = _container.Resolve<NoteContext>())
+                    {
+                        db.Notes.Attach(obj as Note ?? throw new InvalidOperationException("Argument can'y be null."));
+                        db.Entry((Note)obj).State = EntityState.Deleted;
+                        db.SaveChanges();
+                    }
+                    break;
+                case CalendarEvent _:
+                    using (var db = _container.Resolve<CalendarEventContext>())
+                    {
+                        var evEdit = db.Events.First(item => item.Id == ((CalendarEvent)obj).Id);
+                        db.Events.Attach(evEdit);
+                        db.Entry(evEdit).State = EntityState.Deleted;
+                        db.SaveChanges();
+                    }
+                    break;
+                default:
+                    throw new ArgumentException($"Can't cast type {obj.GetType()} to the Note or CalendarEvent types");
+            }
+        }
+
+        private bool AddNotesToDb(IEnumerable<Note> notes)
+        {
+            using (var db = _container.Resolve<NoteContext>())
+            {
+                var notAdded = notes.Where(note => note.Id == 0);
+                var added = notes.Except(notAdded);
+                foreach (var item in added)
+                {
+                    var notChangedItem = db.Notes.First(note => note.Id == item.Id);
+                    notChangedItem.Color = item.Color;
+                    notChangedItem.Content = item.Content;
+                    notChangedItem.Name = item.Name;
+                    notChangedItem.Priority = item.Priority;
+                    notChangedItem.TimeOfChange = item.TimeOfChange;
+                }
+                foreach (var item in notAdded)
+                {
+                    db.Notes.Add(item);
+                }
+                db.SaveChanges();
+            }
+            return true;
+        }
+
+        private bool AddEventsToDb(IDictionary<Day, IList<CalendarEvent>> fullEvents)
+        {
+            var lists = fullEvents.Values.Where(item => item.Count > 0);
+
+            var events = (from list in lists
+                          from ev in list
+                          select ev).Distinct();
+
+            var days = fullEvents.Keys /*.Where(item => item.Events.Count != 0)*/;
+            var notAddedEvents = events.Where(ev => ev.Id == 0);
+            var addedEvents = events.Except(notAddedEvents);
+
+            using (var db = _container.Resolve<CalendarEventContext>())
+            {
+                // Редактирование
+                foreach (var ev in addedEvents)
+                {
+                    var temp = db.Events.First(item => item.Id == ev.Id);
+                    temp.StartTime = ev.StartTime;
+                    temp.Content = ev.Content;
+                    temp.EndTime = ev.EndTime;
+                    temp.Name = ev.Name;
+                    temp.Place = ev.Place;
+                }
+                // Добавление новых
+                db.Events.AddRange(notAddedEvents);
+                db.SaveChanges();
+                foreach (var day in days)
+                {
+                    foreach (var ev in events)
+                    {
+                        if (fullEvents[day].Contains(ev) && !day.Events.Contains(ev))
+                        {
+                            day.Events.Add(ev);
+                        }
+                    }
+                }
+                var notAddedDays = days.Where(day => day.Id == 0);
+                db.Days.AddRange(notAddedDays);
+                db.SaveChanges();  
+            }
+            return true;
         }
     }
 }

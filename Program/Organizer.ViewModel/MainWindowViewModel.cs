@@ -1,40 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Organizer.Model;
+using System.Drawing;
+using DI_container.Common;
+using Organizer.DataAccess;
 
 namespace Organizer.ViewModel
 {
     public class MainWindowViewModel
     {
-        public IList<Note> GetNotes()
+        private readonly IDiContainer _container;
+        private readonly DataManager _manager;
+
+        public MainWindowViewModel(IDiContainer container)
         {
-            var result = new List<Note>
-            {
-                new Note((sbyte) 1, "First Note", "Content of note", DateTime.Now),
-                new Note((sbyte) 2, "Second note", "Content of second note", DateTime.Now)
-            };
-            return result;
+            _container = container;
+            _container.Register<DataManager>();
+            _manager = _container.Resolve<DataManager>(parameters: new object[]{_container});
         }
 
-        public IDictionary<DateTime, IList<CalendarEvent>> GetEvents()
-        {
-            var today = new List<CalendarEvent>
-            {
-                new CalendarEvent("University", "Should doing labs", "Minsk", DateTime.Now, DateTime.Now)
-            };
+        public IList<Note> GetNotes() => _manager.GetFromDatabase<Note>() as List<Note>;
 
-            var tommorow = new List<CalendarEvent>
+        public IDictionary<Day, IList<CalendarEvent>> GetEvents()
+        {
+            //var today = new CalendarEvent("University", "Should doing labs", "Minsk", DateTime.Now, DateTime.Now);
+
+            //var tommorow =  new CalendarEvent("Epam labs", "Will listen lecture", "Epam Training Center", DateTime.Today, DateTime.Now);
+
+            //var result = new Dictionary<Day, IList<CalendarEvent>>
+            //{
+            //    { new Day(DateTime.Today), new List<CalendarEvent>{ today, tommorow} }
+            //};
+
+            //_manager.AddToDatabase(evItems: result);
+            return _manager.GetFromDatabase<CalendarEvent>() as IDictionary<Day, IList<CalendarEvent>>;
+        }
+
+        public void Remove(object obj) => _manager.Remove(obj);
+
+        public void UpdateDatabase<T>(IEnumerable<T> items)
+        {
+            if (typeof(T) == typeof(Note))
             {
-                new CalendarEvent("Epam labs", "Will listen lecture", "Epam Training Center", new DateTime(2017, 12, 08, 10, 00, 00), new DateTime(2017, 12, 08, 12, 00, 00))
-            };
-            
-            var result = new Dictionary<DateTime, IList<CalendarEvent>>();
-            result.Add(DateTime.Today, today);
-            result.Add(tommorow[0].StartTime.Date, tommorow);
-            return result;
+                _manager.AddToDatabase(items as IEnumerable<Note>);
+            }
+            if (items is IDictionary<Day, IList<CalendarEvent>>)
+            {
+                _manager.AddToDatabase(evItems: items as IDictionary<Day, IList<CalendarEvent>>);
+            }
         }
     }
 }
+

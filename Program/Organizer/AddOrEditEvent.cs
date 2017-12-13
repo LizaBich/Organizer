@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Organizer.Model;
+using Day = Organizer.Model.Day;
 
 namespace Organizer
 {
@@ -16,12 +18,16 @@ namespace Organizer
 
             buttonEventSave.Click += ButtonSave_Clicked;
             FormClosed += Window_Closed;
+            buttonRepeateConfig.Click += ButtonConfig_Click;
 
             if (calendarEvent == null)
                 Event = new CalendarEvent(String.Empty, String.Empty, String.Empty, DateTime.Today,
                     DateTime.Today);
             else Event = calendarEvent;
         }
+
+        public IList<Day> NeadedDays { get; set; }
+        public DateTime SelectedDate { get; set; }
 
         public CalendarEvent Event
         {
@@ -49,5 +55,21 @@ namespace Organizer
         }
 
         private void Window_Closed(object sender, EventArgs args) => WindowClosed?.Invoke(this, EventArgs.Empty);
+
+        private void ButtonConfig_Click(object sender, EventArgs args)
+        {
+            var configWindow = new RepeateConfig
+            {
+                StartTime = SelectedDate,
+                NeadedDays = NeadedDays
+            };
+            configWindow.ButtonSaveClick += RepeateConfigSaveButton_Click;
+            configWindow.Show();
+        }
+
+        private void RepeateConfigSaveButton_Click(object sender, EventArgs args)
+        {
+            NeadedDays = (sender as RepeateConfig).NeadedDays;
+        }
     }
 }

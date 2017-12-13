@@ -15,7 +15,7 @@ namespace Organizer.DataAccess
         /// Конструктор класса
         /// DbConnection - имя строки подключения к бд
         /// </summary>
-        public NoteContext() : base("DbConnection")
+        public NoteContext() : base("Name=DbConnection")
         {
             
         }
